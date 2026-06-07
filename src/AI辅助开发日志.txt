@@ -1,0 +1,12 @@
+6.7 询问AI修正handleChoice()方法的逻辑错误
+   问题
+   catch (InputMismatchException e) {
+       System.out.println("输入类型不正确！请重试！");
+       input.nextInt();  // ❌ 这里错了
+   }
+    修正
+    在 catch 里用 input.next() 或 input.nextLine() 把那个无效数据吃掉，再进入下一轮循环。
+    catch (InputMismatchException e) {
+        System.out.println("输入类型不正确！请重试！");
+        input.next();  // 清掉无效的输入
+    }
