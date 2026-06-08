@@ -27,3 +27,6 @@
     一行行读取文件直到末尾返回null
 
     利用Deepseek修正loadDocument()方法的部分逻辑错误
+
+    询问Deepseek如何将loadDocument()方法与main方法链接
+    因为loadDocument()方法不是静态方法，所以应该先创建DocumentFormatter的对象，用对象来调用成员方法
