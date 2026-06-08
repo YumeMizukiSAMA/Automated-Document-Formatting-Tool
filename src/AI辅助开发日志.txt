@@ -30,3 +30,10 @@
 
     询问Deepseek如何将loadDocument()方法与main方法链接
     因为loadDocument()方法不是静态方法，所以应该先创建DocumentFormatter的对象，用对象来调用成员方法
+
+    询问Deepseek文档清理的思路并提供方法
+     unifyNewlines();       // 1. 统一换行符
+     removeTrailingSpaces();// 2. 去除行尾空格
+     mergeBlankLines();     // 3. 合并连续空行
+     standardizePunctuation(); // 4. 其他进阶规则...
+     用正则表达式和结合String.replaceAll(正则1,正则2)完成批量替换

@@ -39,5 +39,24 @@ public class DocumentFormatter {
         }
         return sb.toString();
     }
+    public void formatDocument(){
+        if(this.content == null){
+            System.out.println("错误！请先读取文档");
+            return;
+        }
+        unifyNewlines();       // 1. 统一换行符
+        removeTrailingSpaces();// 2. 去除行尾空格
+        mergeBlankLines();     // 3. 合并连续空行
+        System.out.println("基础格式排版完成。");
+    }
+    private void unifyNewlines(){
+        this.content = this.content.replaceAll("\n{3,}", "\n\n")
+    }
+    private void removeTrailingSpaces(){
+        this.content = this.content.replaceAll("[ \t]+\n", "\n");
+    }
+    private void mergeBlankLines() {
+        this.content = this.content.replaceAll("\n{3,}", "\n\n");
+    }
 
 }
