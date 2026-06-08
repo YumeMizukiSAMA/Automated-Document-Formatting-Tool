@@ -1,4 +1,4 @@
-6.7 询问AI修正handleChoice()方法的逻辑错误
+6.7 询问Deepseek修正handleChoice()方法的逻辑错误
    问题
    catch (InputMismatchException e) {
        System.out.println("输入类型不正确！请重试！");
@@ -10,3 +10,20 @@
         System.out.println("输入类型不正确！请重试！");
         input.next();  // 清掉无效的输入
     }
+6.8 询问Deepseek如何检查文件的后缀名
+    String类型检测后缀方法String.endsWith("")
+
+    询问DeepseekString path = input.nextLine();是否需要保护
+    不需要，其读取的String类型绝对安全
+
+    查询文件输入流相关知识
+
+    对异常对象e如何查看信息
+    简短的错误描述：e.getMessage();
+    异常的错误类型和简短描述：e.toString();
+    打印出最完整的错误信息：i.printStackTrace();
+
+    向Deepseek询问reader.readLine()的工作原理
+    一行行读取文件直到末尾返回null
+
+    利用Deepseek修正loadDocument()方法的部分逻辑错误
