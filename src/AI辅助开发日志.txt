@@ -37,3 +37,15 @@
      mergeBlankLines();     // 3. 合并连续空行
      standardizePunctuation(); // 4. 其他进阶规则...
      用正则表达式和结合String.replaceAll(正则1,正则2)完成批量替换
+6.9 如何因为不正确的某些原因结束一个方法
+    return即可
+
+    如何检查content内容不为空
+    用实例方法String.isEmpty()判断字符串是否为空，返回值为boolean类型
+
+    询问文件写入流的相关知识
+
+    对保存相关代码进行优化更新，增加自动生成建议文件名（通过String.replace("target","replacement")方法替换原有文件名）
+
+
+
