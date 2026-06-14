@@ -13,12 +13,13 @@ public class Main {
             switch (MenuController.handleChoice()){
                 case 1 -> formatter.loadDocument();
                 case 2 -> formatter.formatDocument();
-                case 3 -> formatter.saveDucument();
-                case 4 -> {
+                case 3 -> formatter.applyStandardFormat();
+                case 4 -> formatter.saveDocument();
+                case 5 -> {
                     System.out.print("是否保存排版后的文档再退出（Y/N）?：");
                     String confirm = scanner.nextLine();
                     if(confirm.equalsIgnoreCase("Y")){
-                        formatter.saveDucument();
+                        formatter.saveDocument();
                         System.out.println("文件保存成功！");
                     }
                     else{

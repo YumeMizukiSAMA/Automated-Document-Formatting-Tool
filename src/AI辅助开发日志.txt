@@ -46,6 +46,19 @@
     询问文件写入流的相关知识
 
     对保存相关代码进行优化更新，增加自动生成建议文件名（通过String.replace("target","replacement")方法替换原有文件名）
+6.14 检查DocumentFormatter类的代码
+     修正英文方法拼写错误saveDucument()-> saveDocument()
+     修正unifyNewlines() 方法逻辑错误
+     private void unifyNewlines(){
+         this.content = this.content.replaceAll("\n{3,}", "\n\n");  // 这是合并空行，不是统一换行符
+     }
+     这个方法名叫“统一换行符”，但实际做的是“合并连续空行”。而且 mergeBlankLines() 里已经做了同样的事。
+     修改：把 unifyNewlines() 改为真正的统一换行符逻辑，并删除 mergeBlankLines() 中的重复。
+     // 统一换行符：把 Windows 的 \r\n 换成 Linux 的 \n
+     private void unifyNewlines() {
+         this.content = this.content.replaceAll("\r\n", "\n");
+     }
+     同时保留 mergeBlankLines() 不变。
 
 
 

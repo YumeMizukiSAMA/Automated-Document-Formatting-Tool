@@ -50,8 +50,9 @@ public class DocumentFormatter {
         normalizeParagraphs();  // 4. 规范化段落结构
         System.out.println("基础格式排版完成。");
     }
-    private void unifyNewlines(){
-        this.content = this.content.replaceAll("\n{3,}", "\n\n");
+
+    private void unifyNewlines() {
+        this.content = this.content.replaceAll("\r\n", "\n");
     }
     private void removeTrailingSpaces(){
         this.content = this.content.replaceAll("[ \t]+\n", "\n");
@@ -73,7 +74,34 @@ public class DocumentFormatter {
 
         this.content = sb.toString().stripTrailing() + "\n";
     }
-    public void saveDucument(){
+
+    /**
+     * 统一格式设置：为文档添加标准排版格式声明
+     */
+    public void applyStandardFormat() {
+        if (this.content == null || this.content.isEmpty()) {
+            System.out.println("错误：请先读取文档，然后再设置统一格式！");
+            return;
+        }
+
+        String header = """
+            ========================================
+            文档排版标准格式
+            字体：宋体
+            字号：小四（12pt）
+            段落行距：固定值 18 磅
+            正文缩进：首行缩进 2 字符
+            生成工具：文档自动排版工具 v1.0
+            ========================================
+
+            """;
+
+        this.content = header + this.content;
+
+        System.out.println("统一格式设置完成：宋体小四，段落行距 18 磅。");
+    }
+
+    public void saveDocument(){
         if (this.content == null || this.content.isEmpty()){
             System.out.println("当前没有可保存的文档内容，请先读取并排版文档");
             return;
