@@ -47,6 +47,7 @@ public class DocumentFormatter {
         unifyNewlines();       // 1. 统一换行符
         removeTrailingSpaces();// 2. 去除行尾空格
         mergeBlankLines();     // 3. 合并连续空行
+        normalizeParagraphs();  // 4. 规范化段落结构
         System.out.println("基础格式排版完成。");
     }
     private void unifyNewlines(){
@@ -57,6 +58,20 @@ public class DocumentFormatter {
     }
     private void mergeBlankLines() {
         this.content = this.content.replaceAll("\n{3,}", "\n\n");
+    }
+    private void normalizeParagraphs() {
+        String[] paragraphs = this.content.split("\n\n+");
+        StringBuilder sb = new StringBuilder();
+
+        for (String para : paragraphs) {
+            String trimmed = para.trim().replaceAll("\n", " ");
+            if (!trimmed.isEmpty()) {
+                // 用空格模拟缩进
+                sb.append(trimmed).append("\n\n");
+            }
+        }
+
+        this.content = sb.toString().stripTrailing() + "\n";
     }
     public void saveDucument(){
         if (this.content == null || this.content.isEmpty()){
@@ -78,7 +93,7 @@ public class DocumentFormatter {
 
         File file = new File(savePath);
         if(file.exists()){
-            System.out.print("该文件已经存在，是否覆盖（Y/N）?");
+            System.out.print("该文件已经存在，是否覆盖（Y/N）?：");
             String confirm = scanner.nextLine();
             if (!confirm.equalsIgnoreCase("Y")){
                 System.out.println("文件已取消保存。");
