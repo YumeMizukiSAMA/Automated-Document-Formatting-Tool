@@ -15,7 +15,8 @@ public class Main {
                 case 2 -> formatter.formatDocument();
                 case 3 -> formatter.applyStandardFormat();
                 case 4 -> formatter.saveDocument();
-                case 5 -> {
+                case 5 -> formatter.showStatistics();
+                case 6 -> {
                     System.out.print("是否保存排版后的文档再退出（Y/N）?：");
                     String confirm = scanner.nextLine();
                     if(confirm.equalsIgnoreCase("Y")){

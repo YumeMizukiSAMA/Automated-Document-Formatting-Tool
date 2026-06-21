@@ -5,42 +5,45 @@ import java.util.Scanner;
 public class DocumentFormatter {
     private String content;
     private String originalFilePath;
-    public DocumentFormatter(){
+
+    public DocumentFormatter() {
 
     }
-    public void loadDocument(){
+
+    public void loadDocument() {
         Scanner input = new Scanner(System.in);
         boolean success = false;
-        while(!success){
-            try{
+        while (!success) {
+            try {
                 System.out.print("请输入文件路径：");
                 String path = input.nextLine();
-                if(path.endsWith(".txt")|| path.endsWith(".md")){
+                if (path.endsWith(".txt") || path.endsWith(".md")) {
                     this.originalFilePath = path;
                     this.content = readTextFile(path);
                     success = true;
                     System.out.println("读取成功！");
-                }
-                else {
+                } else {
                     System.out.println("暂不支持除txt、md格式外的文件");
                 }
-            }catch (IOException e){
+            } catch (IOException e) {
                 System.out.println("操作失败" + e.getMessage());
             }
         }
     }
-    private String readTextFile(String path) throws IOException{
+
+    private String readTextFile(String path) throws IOException {
         StringBuilder sb = new StringBuilder();
-        try(BufferedReader reader = new BufferedReader(new FileReader(path))){
+        try (BufferedReader reader = new BufferedReader(new FileReader(path))) {
             String line;
-            while((line = reader.readLine()) != null){
+            while ((line = reader.readLine()) != null) {
                 sb.append(line).append("\n");
             }
         }
         return sb.toString();
     }
-    public void formatDocument(){
-        if(this.content == null){
+
+    public void formatDocument() {
+        if (this.content == null) {
             System.out.println("错误！请先读取文档");
             return;
         }
@@ -54,12 +57,15 @@ public class DocumentFormatter {
     private void unifyNewlines() {
         this.content = this.content.replaceAll("\r\n", "\n");
     }
-    private void removeTrailingSpaces(){
+
+    private void removeTrailingSpaces() {
         this.content = this.content.replaceAll("[ \t]+\n", "\n");
     }
+
     private void mergeBlankLines() {
         this.content = this.content.replaceAll("\n{3,}", "\n\n");
     }
+
     private void normalizeParagraphs() {
         String[] paragraphs = this.content.split("\n\n+");
         StringBuilder sb = new StringBuilder();
@@ -85,54 +91,71 @@ public class DocumentFormatter {
         }
 
         String header = """
-            ========================================
-            文档排版标准格式
-            字体：宋体
-            字号：小四（12pt）
-            段落行距：固定值 18 磅
-            正文缩进：首行缩进 2 字符
-            生成工具：文档自动排版工具 v1.0
-            ========================================
-
-            """;
+                ========================================
+                文档排版标准格式
+                字体：宋体
+                字号：小四（12pt）
+                段落行距：固定值 18 磅
+                正文缩进：首行缩进 2 字符
+                生成工具：文档自动排版工具 v1.0
+                ========================================
+                
+                """;
 
         this.content = header + this.content;
 
         System.out.println("统一格式设置完成：宋体小四，段落行距 18 磅。");
     }
 
-    public void saveDocument(){
-        if (this.content == null || this.content.isEmpty()){
+    public void saveDocument() {
+        if (this.content == null || this.content.isEmpty()) {
             System.out.println("当前没有可保存的文档内容，请先读取并排版文档");
             return;
         }
         Scanner scanner = new Scanner(System.in);
 
         String defaultName = "排版后文档.txt";
-        if(this.originalFilePath != null){
-            defaultName = this.originalFilePath.replace(".txt","_已排版.txt")
-                    .replace(".md","_已排版.md");
+        if (this.originalFilePath != null) {
+            defaultName = this.originalFilePath.replace(".txt", "_已排版.txt")
+                    .replace(".md", "_已排版.md");
         }
         System.out.print("请输入保存路径（直接回车使用默认：" + defaultName + ")");
         String savePath = scanner.nextLine();
-        if(savePath.isEmpty()){
+        if (savePath.isEmpty()) {
             savePath = defaultName;
         }
 
         File file = new File(savePath);
-        if(file.exists()){
+        if (file.exists()) {
             System.out.print("该文件已经存在，是否覆盖（Y/N）?：");
             String confirm = scanner.nextLine();
-            if (!confirm.equalsIgnoreCase("Y")){
+            if (!confirm.equalsIgnoreCase("Y")) {
                 System.out.println("文件已取消保存。");
                 return;
             }
         }
-        try (BufferedWriter writer = new BufferedWriter(new FileWriter(savePath))){
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(savePath))) {
             writer.write(this.content);
             System.out.println("文件保存成功！");
-        }catch (IOException e){
+        } catch (IOException e) {
             System.out.println("保存失败：" + e.getMessage());
         }
+    }
+
+    public void showStatistics() {
+        if (this.content == null || this.content.isEmpty()) {
+            System.out.println("当前没有文档内容，请先读取文档！");
+            return;
+        }
+        int totalChars = countTotalChars();
+        int nonSpaceChars = countNonSpaceChars();
+    }
+
+    private int countTotalChars() {
+        return this.content.length();
+    }
+
+    private int countNonSpaceChars() {
+        return this.content.replaceAll("\\s+", "").length();
     }
 }

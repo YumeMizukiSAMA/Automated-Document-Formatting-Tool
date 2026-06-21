@@ -59,6 +59,27 @@
          this.content = this.content.replaceAll("\r\n", "\n");
      }
      同时保留 mergeBlankLines() 不变。
+6.21 使用DeepSeek为feature分支中新开发的文档字数统计功能提供思路
+     // 统计总字符数（直接使用字符串长度）
+     private int countTotalChars() {
+         return this.content.length();
+     }
 
+     // 统计非空白字符数（去掉空格、换行、制表符等）
+     private int countNonSpaceChars() {
+         return this.content.replaceAll("\\s+", "").length();
+     }
 
+     询问replaceAll("\\s+", "")的意思
+     `replaceAll("\\s+", "")` 这行代码的作用是：**把字符串中所有连续的空白字符（空格、换行、制表符等）全部删掉，一个不留。**
+     它用在统计“有效字符数”上，就是先把文档里的空白全部清空，然后数剩下的字符有多少。
+     |      写法     |                 含义                  |
+     |  replaceAll  | String 的方法：查找并替换所有匹配的部分     |
+     |    "\\s+"    |   正则表达式：匹配一个或多个空白字符         |
+     |     ""       |      替换成空字符串，也就是删掉            |
+      \\s+ 为什么这么写？
+     在正则表达式里：
+      `\s` 代表任意空白字符（空格、Tab、换行 `\n`、回车 `\r` 等）。
+      `+` 代表至少出现 1 次，连续的就一起匹配。
+     在 Java 字符串里，反斜杠 `\` 本身需要转义，所以要写成 `\\`。正则里的 `\s` 到 Java 字符串里就是 `\\s`。
 
