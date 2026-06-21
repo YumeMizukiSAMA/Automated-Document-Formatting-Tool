@@ -149,6 +149,9 @@ public class DocumentFormatter {
         }
         int totalChars = countTotalChars();
         int nonSpaceChars = countNonSpaceChars();
+        System.out.println("========== 文档统计 ==========");
+        System.out.println("总字符数（含空格/换行）：" + totalChars);
+        System.out.println("有效字符数（不含空白）：" + nonSpaceChars);
     }
 
     private int countTotalChars() {
