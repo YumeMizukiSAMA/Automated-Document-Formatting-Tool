@@ -7,7 +7,7 @@ public class Main {
         Scanner scanner = new Scanner(System.in);
 
         System.out.println("———————————————————————————————");
-        System.out.println("欢迎使用 文档自动排版工具 v1.0");
+        System.out.println("欢迎使用文档自动排版工具");
         System.out.println("提示：本工具支持txt/md格式文档的读取、格式化与保存");
         System.out.println("———————————————————————————————");
 
@@ -15,7 +15,6 @@ public class Main {
             MenuController.showMenu();
             switch (MenuController.handleChoice()) {
                 case 1 -> {
-                    // 优化2：添加操作反馈提示
                     System.out.println("正在加载文档...");
                     formatter.loadDocument();
                     System.out.println("文档加载完成！");
@@ -56,7 +55,7 @@ public class Main {
                 default -> System.out.println("无效选项！请输入1-6之间的数字！\n");
             }
         }
-        scanner.close(); // 补充关闭Scanner，释放资源
+        scanner.close();
         System.out.println("系统已安全退出");
     }
 }
