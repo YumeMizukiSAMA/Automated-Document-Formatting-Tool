@@ -6,7 +6,6 @@ public class Main {
         DocumentFormatter formatter = new DocumentFormatter();
         Scanner scanner = new Scanner(System.in);
 
-        // 优化1：统一使用英文标点、优化欢迎语格式
         System.out.println("———————————————————————————————");
         System.out.println("欢迎使用 文档自动排版工具 v1.0");
         System.out.println("提示：本工具支持txt/md格式文档的读取、格式化与保存");
@@ -42,11 +41,11 @@ public class Main {
                 }
                 case 6 -> {
                     System.out.print("是否保存排版后的文档再退出（Y/N）?：");
-                    String confirm = scanner.nextLine().trim(); // 优化3：增加trim()去除用户输入前后空格
+                    String confirm = scanner.nextLine().trim();
                     if (confirm.equalsIgnoreCase("Y")) {
                         formatter.saveDocument();
                         System.out.println("文件保存成功！");
-                    } else if (!confirm.equalsIgnoreCase("N")) { // 补充无效输入处理
+                    } else if (!confirm.equalsIgnoreCase("N")) {
                         System.out.println("输入无效，默认不保存修改");
                     } else {
                         System.out.println("修改后的文件未保存");
